@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    ".env": "dotenv",
+    "led.h": "c",
+    "autogen_adc0.h": "c"
+  }
+}
