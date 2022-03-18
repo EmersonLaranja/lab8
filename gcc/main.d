@@ -1,4 +1,5 @@
 gcc/main.o: main.c \
+ /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/em_device.h \
  /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h \
  /home/laranja/Downloads/Gecko_SDK/platform/CMSIS/Include/core_cm3.h \
  /home/laranja/Downloads/Gecko_SDK/platform/CMSIS/Include/core_cmInstr.h \
@@ -52,7 +53,9 @@ gcc/main.o: main.c \
  /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_uart.h \
  /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_af_ports.h \
  /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_af_pins.h \
+ /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h \
  lcd.h
+/home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/em_device.h:
 /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:
 /home/laranja/Downloads/Gecko_SDK/platform/CMSIS/Include/core_cm3.h:
 /home/laranja/Downloads/Gecko_SDK/platform/CMSIS/Include/core_cmInstr.h:
@@ -106,4 +109,5 @@ gcc/main.o: main.c \
 /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_uart.h:
 /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_af_ports.h:
 /home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg_af_pins.h:
+/home/laranja/Downloads/Gecko_SDK/platform/Device/SiliconLabs/EFM32GG/Include/efm32gg990f1024.h:
 lcd.h:

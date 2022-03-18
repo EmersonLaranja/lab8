@@ -1,0 +1,227 @@
+#include <stdint.h>
+#include "em_device.h"
+
+#define BIT(N) (1U << (N))
+
+/// LEDs are on Port E
+#define LED0 BIT(0)
+#define LED1 BIT(1)
+#define LED2 BIT(2)
+#define LED3 BIT(3)
+#define LED4 BIT(4)
+#define LED5 BIT(5)
+#define LED6 BIT(6)
+#define LED7 BIT(7)
+
+/// Default delay value.
+#define DELAYVAL 3
+
+GPIO_P_TypeDef *const GPIOD = &(GPIO->P[3]);
+
+#define BUTTON_PORT 1 // PORT B
+#define PB0 9         // PB0
+#define PB1 10        // PB1
+
+#define SWITCH_PORT 2 // PORT c
+#define PC0 0         // PC0
+
+void Delay(uint32_t delay)
+{
+    volatile uint32_t counter;
+    int i;
+
+    for (i = 0; i < delay; i++)
+    {
+        counter = 100000;
+        while (counter)
+            counter--;
+    }
+}
+
+void increment(uint32_t *x)
+{
+    *x = *x + 1;
+    if (*x > 255)
+    {
+        *x = 255;
+    }
+    GPIOD->DOUT = *x;
+}
+
+void decrement(uint32_t *x)
+{
+    *x = *x - 1;
+    if (*x < 0)
+    {
+        *x = 0;
+    }
+    GPIOD->DOUT = *x;
+}
+
+void moveToRight(uint32_t *positionLED)
+{
+    GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+    if (*positionLED == 0)
+    {
+        *positionLED = 7;
+    }
+    else
+    {
+        *positionLED = *positionLED - 1;
+    }
+    GPIOD->DOUT = BIT(*positionLED);
+}
+
+void moveToLeft(uint32_t *positionLED)
+{
+    GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+    if (*positionLED == 7)
+    {
+        *positionLED = 0;
+    }
+    else
+    {
+        *positionLED = *positionLED + 1;
+    }
+    GPIOD->DOUT = BIT(*positionLED);
+}
+
+void turnOn()
+{
+    GPIOD->DOUT |= (LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+}
+
+void turnOff()
+{
+    GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+}
+
+void equalizador()
+{
+    for (int i = 0; i < 8; i++)
+    {
+        GPIOD->DOUT |= BIT(i);
+        Delay(DELAYVAL);
+    }
+    for (int i = 7; i >= 0; i--)
+    {
+        GPIOD->DOUT &= ~BIT(i);
+        Delay(DELAYVAL);
+    }
+}
+
+void autofantastico(int qtd)
+{
+    GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < qtd; j++)
+        {
+            GPIOD->DOUT |= BIT(i + j);
+        }
+        Delay(3 * DELAYVAL);
+        GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+    }
+    for (int i = 7; i >= 0; i--)
+    {
+        for (int j = 0; j < qtd; j++)
+        {
+            GPIOD->DOUT |= BIT(i - j);
+        }
+        Delay(3 * DELAYVAL);
+        GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+    }
+}
+
+int main(void)
+{
+
+    // Enable Clock for GPIO /
+    CMU->HFPERCLKDIV |= CMU_HFPERCLKDIV_HFPERCLKEN; // Enable HFPERCLK
+    CMU->HFPERCLKEN0 |= CMU_HFPERCLKEN0_GPIO;       // Enable HFPERCKL for GPIO
+
+    GPIO->P[BUTTON_PORT].MODEH = (2 << 4) | (2 << 8);    // Configure PB0 and PB1 as inputs
+    GPIO->P[BUTTON_PORT].DOUT = (1 << PB1) | (1 << PB0); // Enable Pull-ups
+
+    GPIO->P[SWITCH_PORT].MODEL = (4 << 0);     // Configure PC0 as input
+    GPIO->P[SWITCH_PORT].DOUTSET = (1 << PC0); // Enable Pull-up
+
+    // Configure Pins in GPIOD /
+    GPIOD->MODEL = (0x44444444); // Clear bits
+
+    uint32_t binaryValue = 0;
+    uint32_t positionLED = 0;
+
+    int statusCS = 0, statusSW1 = 0, statusSW2 = 0;
+
+    while (1)
+    {
+        turnOff();
+
+        // verifica se o botao PB0 foi pressionado e liga tudo
+        if (!(GPIO->P[BUTTON_PORT].DIN & (1 << PB0)))
+        { // If PB0 is pressed
+            statusSW1 = !statusSW1;
+            Delay(2 * DELAYVAL);
+        }
+
+        if (!(GPIO->P[BUTTON_PORT].DIN & (1 << PB1)))
+        { // If PB1 is pressed
+            statusSW2 = !statusSW2;
+            Delay(2 * DELAYVAL);
+        }
+
+        if (!(GPIO->P[SWITCH_PORT].DIN & (1 << PC0)))
+        { // If PC0 is pressed
+            statusCS = !statusCS;
+            Delay(2 * DELAYVAL);
+        }
+
+        if (statusCS == 0 && statusSW2 == 0 && statusSW1 == 0)
+        {
+            increment(&binaryValue);
+            Delay(3 * DELAYVAL);
+        }
+        else if (statusCS == 0 && statusSW2 == 0 && statusSW1 == 1)
+        {
+            decrement(&binaryValue);
+            Delay(3 * DELAYVAL);
+        }
+        else if (statusCS == 0 && statusSW2 == 1 && statusSW1 == 0)
+        {
+            moveToRight(&positionLED);
+            Delay(3 * DELAYVAL);
+        }
+        else if (statusCS == 0 && statusSW2 == 1 && statusSW1 == 1)
+        {
+            moveToLeft(&positionLED);
+            Delay(3 * DELAYVAL);
+        }
+        else if (statusCS == 1 && statusSW2 == 0 && statusSW1 == 0)
+        {
+            equalizador();
+        }
+        else if (statusCS == 1 && statusSW2 == 0 && statusSW1 == 1)
+        {
+            turnOn();
+            Delay(3 * DELAYVAL);
+            turnOff();
+        }
+        else if (statusCS == 1 && statusSW2 == 1 && statusSW1 == 0)
+        {
+            autofantastico(2);
+        }
+        else if (statusCS == 1 && statusSW2 == 1 && statusSW1 == 1)
+        {
+            // turn the first LED on and the last LED on and all the others off
+            GPIOD->DOUT &= ~(LED0 | LED1 | LED2 | LED3 | LED4 | LED5 | LED6 | LED7);
+            GPIOD->DOUT |= (LED0 | LED7);
+            Delay(3 * DELAYVAL);
+        }
+    }
+}
+
+
+
+
+-------------------------------------------------

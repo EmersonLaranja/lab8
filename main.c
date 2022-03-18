@@ -1,11 +1,22 @@
+
+#include <stdint.h>
+#include "em_device.h"
 #include "efm32gg990f1024.h"
 #include "lcd.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// #include "em_chip.h"    // required for CHIP_Init() function
 
-#define LED_PORT 4            // gpioPortE
+#define BIT(N) (1U << (N))
+#define LED_PORT 2 // gpioPortC
+
+/// LEDs are on Port E
+#define LED BIT(0)
+
+/// Default delay value.
+#define DELAYVAL 3
+
+// ADC
 #define TOP_VAL_PWM 1000      // sets PWM frequency to 1kHz (1MHz timer clock)
 #define TOP_VAL_GP_TIMER 1000 // sets general purpose timer overflow frequency to 1kHz (1MHz timer clock)
 
@@ -14,6 +25,9 @@
 #define TX_pin 0
 #define ADC_pin 6 // ADC Channel 6
 
+// variaveis globais
+// GPIO_P_TypeDef *const GPIOD = &(GPIO->P[3]);
+GPIO_P_TypeDef *const GPIOC = &(GPIO->P[2]);
 uint16_t ms_counter = 0;
 
 void Delay(uint32_t delay)
@@ -28,6 +42,17 @@ void Delay(uint32_t delay)
             counter--;
     }
 }
+
+void turnOn()
+{
+    GPIOC->DOUT |= (LED);
+}
+
+void turnOff()
+{
+    GPIOC->DOUT &= ~(LED);
+}
+
 void TIMER0_IRQHandler(void)
 {
     TIMER0->IFC = 1; // Clear overflow flag
@@ -54,17 +79,8 @@ void setupADC()
     USART1->IFC = 0x1FF9;                                      // clear all USART interrupt flags
     USART1->ROUTE = 0x103;                                     // Enable TX and RX pins, use location #1 (UART TX and RX located at PD0 and PD1, see EFM32GG990 datasheet for details)
 
-    // Setup ADC
-    // Timebase bit field = 24, defines ADC warm up period (must be greater than or equal to number of clock cycles in 1us)
-    // Prescaler setting = 1: ADC clock = HFPERCLK/2 = 12MHz (ADC clock should be between 32kHz and 13MHz)
-    // Oversampling set to 2, no input filter, no need for Conversion Tailgating
-    // Warm-up mode = NORMAL (ADC is not kept warmed up between conversions)
     ADC0->CTRL = (24 << 16) | (1 << 8);
 
-    // Don't use PRS as input
-    // Can use single-cycle acquisition time since we are spacing out our conversions using a timer
-    // Use buffered Vdd as reference, use Channel 6 as input to single conversion
-    // 12-bit resolution, right-justified, single-ended input, single conversion
     ADC0->SINGLECTRL = (2 << 16) | (6 << 8);
     ADC0->IEN = 0x0; // Disable ADC interrupts
 
@@ -91,21 +107,29 @@ void setupLED()
     TIMER3->CC[2].CCVB = 0;
 
     TIMER3->CC[2].CTRL = 0x3;
-    TIMER3->ROUTE = (1 << 16) | (1 << 2);
+
+    // TIMER3->ROUTE = (1 << 16) | (1 << 2);
+
+    // Route TIMER1 CC0 to location 4 and enable CC0 route pin
+    // TIM1_CC0 #4 is GPIO Pin PD6
+    // TIMER1->ROUTE |= (TIMER_ROUTE_CC0PEN | TIMER_ROUTE_LOCATION_LOC4);
+
+    // Route TIMER3 CC0 to location 4 and enable CC0 route pin
+    // TIM3_CC0 #4 is GPIO Pin PC0
+    TIMER3->ROUTE |= (TIMER_ROUTE_CC0PEN | TIMER_ROUTE_LOCATION_LOC4);
 
     TIMER0->CMD = 0x1;
     TIMER3->CMD = 0x1;
 }
 
-int main()
+int main(void)
 {
     int adc_result = 0; // Temp variable for storing ADC conversion results
 
+    // // Enable Clock for GPIO /
+
     setupADC();
     setupLED();
-
-    Delay(3);
-
     // Configure LCD
     LCD_Init();
 
@@ -117,8 +141,13 @@ int main()
 
     TIMER3->CC[2].CCVB = 200;
 
+    // define GPIOC as output
+    GPIOC->MODEL = (1 << 0);
+    GPIOC->DOUT = 0;
+
     while (1)
     {
+
         if (ms_counter == 500)
         {
             ADC0->CMD = 0x1; // Start Single Conversion
@@ -131,10 +160,13 @@ int main()
             char result_str[10];
             itoa(adc_result, result_str, 10);
 
-            TIMER3->CC[2].CCVB = adc_result;
+            TIMER3->CC[2].CCVB = adc_result * 2;
 
             LCD_WriteString(result_str);
-
+            // turnOn();
+            // Delay(5 * DELAYVAL);
+            // turnOff();
+            // Delay(5 * DELAYVAL);
             ms_counter = 0; // reset counter
         }
     }

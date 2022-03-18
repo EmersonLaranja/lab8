@@ -33,6 +33,9 @@ Discarded input sections
  .text          0x0000000000000000        0x0 gcc/main.o
  .data          0x0000000000000000        0x0 gcc/main.o
  .bss           0x0000000000000000        0x0 gcc/main.o
+ .rodata.GPIOC  0x0000000000000000        0x4 gcc/main.o
+ .text.turnOn   0x0000000000000000       0x1c gcc/main.o
+ .text.turnOff  0x0000000000000000       0x1c gcc/main.o
  .text          0x0000000000000000        0x0 gcc/startup_efm32gg.o
  .data          0x0000000000000000        0x0 gcc/startup_efm32gg.o
  .bss           0x0000000000000000        0x0 gcc/startup_efm32gg.o
@@ -89,7 +92,7 @@ LOAD /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/1
 LOAD /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a
 END GROUP
 
-.text           0x0000000000000000     0x158d
+.text           0x0000000000000000     0x159d
  *(.vectors)
  .vectors       0x0000000000000000       0xdc gcc/startup_efm32gg.o
                 0x0000000000000000                __Vectors
@@ -142,85 +145,85 @@ END GROUP
                 0x0000000000000968       0xb8 gcc/main.o
                 0x0000000000000968                setupADC
  .text.setupLED
-                0x0000000000000a20       0x7c gcc/main.o
+                0x0000000000000a20       0x80 gcc/main.o
                 0x0000000000000a20                setupLED
- .text.main     0x0000000000000a9c       0xa4 gcc/main.o
-                0x0000000000000a9c                main
+ .text.main     0x0000000000000aa0       0xb0 gcc/main.o
+                0x0000000000000aa0                main
  .text.Reset_Handler
-                0x0000000000000b40       0x50 gcc/startup_efm32gg.o
-                0x0000000000000b40                Reset_Handler
- .text._main    0x0000000000000b90        0xc gcc/startup_efm32gg.o
-                0x0000000000000b90                _main
+                0x0000000000000b50       0x50 gcc/startup_efm32gg.o
+                0x0000000000000b50                Reset_Handler
+ .text._main    0x0000000000000ba0        0xc gcc/startup_efm32gg.o
+                0x0000000000000ba0                _main
  .text.Default_Handler
-                0x0000000000000b9c        0x6 gcc/startup_efm32gg.o
-                0x0000000000000b9c                TIMER2_IRQHandler
-                0x0000000000000b9c                DebugMon_Handler
-                0x0000000000000b9c                USART0_TX_IRQHandler
-                0x0000000000000b9c                I2C0_IRQHandler
-                0x0000000000000b9c                HardFault_Handler
-                0x0000000000000b9c                LEUART1_IRQHandler
-                0x0000000000000b9c                SysTick_Handler
-                0x0000000000000b9c                USART1_RX_IRQHandler
-                0x0000000000000b9c                PendSV_Handler
-                0x0000000000000b9c                NMI_Handler
-                0x0000000000000b9c                I2C1_IRQHandler
-                0x0000000000000b9c                TIMER3_IRQHandler
-                0x0000000000000b9c                USART1_TX_IRQHandler
-                0x0000000000000b9c                MSC_IRQHandler
-                0x0000000000000b9c                ADC0_IRQHandler
-                0x0000000000000b9c                UsageFault_Handler
-                0x0000000000000b9c                LEUART0_IRQHandler
-                0x0000000000000b9c                GPIO_EVEN_IRQHandler
-                0x0000000000000b9c                UART0_TX_IRQHandler
-                0x0000000000000b9c                UART1_TX_IRQHandler
-                0x0000000000000b9c                RTC_IRQHandler
-                0x0000000000000b9c                LCD_IRQHandler
-                0x0000000000000b9c                PCNT2_IRQHandler
-                0x0000000000000b9c                UART0_RX_IRQHandler
-                0x0000000000000b9c                LETIMER0_IRQHandler
-                0x0000000000000b9c                TIMER1_IRQHandler
-                0x0000000000000b9c                USART2_RX_IRQHandler
-                0x0000000000000b9c                Default_Handler
-                0x0000000000000b9c                EMU_IRQHandler
-                0x0000000000000b9c                PCNT0_IRQHandler
-                0x0000000000000b9c                USB_IRQHandler
-                0x0000000000000b9c                BURTC_IRQHandler
-                0x0000000000000b9c                PCNT1_IRQHandler
-                0x0000000000000b9c                ACMP0_IRQHandler
-                0x0000000000000b9c                USART0_RX_IRQHandler
-                0x0000000000000b9c                MemManage_Handler
-                0x0000000000000b9c                SVC_Handler
-                0x0000000000000b9c                DAC0_IRQHandler
-                0x0000000000000b9c                UART1_RX_IRQHandler
-                0x0000000000000b9c                CMU_IRQHandler
-                0x0000000000000b9c                EBI_IRQHandler
-                0x0000000000000b9c                LESENSE_IRQHandler
-                0x0000000000000b9c                GPIO_ODD_IRQHandler
-                0x0000000000000b9c                AES_IRQHandler
-                0x0000000000000b9c                VCMP_IRQHandler
-                0x0000000000000b9c                DMA_IRQHandler
-                0x0000000000000b9c                BusFault_Handler
-                0x0000000000000b9c                USART2_TX_IRQHandler
- *fill*         0x0000000000000ba2        0x2 
+                0x0000000000000bac        0x6 gcc/startup_efm32gg.o
+                0x0000000000000bac                TIMER2_IRQHandler
+                0x0000000000000bac                DebugMon_Handler
+                0x0000000000000bac                USART0_TX_IRQHandler
+                0x0000000000000bac                I2C0_IRQHandler
+                0x0000000000000bac                HardFault_Handler
+                0x0000000000000bac                LEUART1_IRQHandler
+                0x0000000000000bac                SysTick_Handler
+                0x0000000000000bac                USART1_RX_IRQHandler
+                0x0000000000000bac                PendSV_Handler
+                0x0000000000000bac                NMI_Handler
+                0x0000000000000bac                I2C1_IRQHandler
+                0x0000000000000bac                TIMER3_IRQHandler
+                0x0000000000000bac                USART1_TX_IRQHandler
+                0x0000000000000bac                MSC_IRQHandler
+                0x0000000000000bac                ADC0_IRQHandler
+                0x0000000000000bac                UsageFault_Handler
+                0x0000000000000bac                LEUART0_IRQHandler
+                0x0000000000000bac                GPIO_EVEN_IRQHandler
+                0x0000000000000bac                UART0_TX_IRQHandler
+                0x0000000000000bac                UART1_TX_IRQHandler
+                0x0000000000000bac                RTC_IRQHandler
+                0x0000000000000bac                LCD_IRQHandler
+                0x0000000000000bac                PCNT2_IRQHandler
+                0x0000000000000bac                UART0_RX_IRQHandler
+                0x0000000000000bac                LETIMER0_IRQHandler
+                0x0000000000000bac                TIMER1_IRQHandler
+                0x0000000000000bac                USART2_RX_IRQHandler
+                0x0000000000000bac                Default_Handler
+                0x0000000000000bac                EMU_IRQHandler
+                0x0000000000000bac                PCNT0_IRQHandler
+                0x0000000000000bac                USB_IRQHandler
+                0x0000000000000bac                BURTC_IRQHandler
+                0x0000000000000bac                PCNT1_IRQHandler
+                0x0000000000000bac                ACMP0_IRQHandler
+                0x0000000000000bac                USART0_RX_IRQHandler
+                0x0000000000000bac                MemManage_Handler
+                0x0000000000000bac                SVC_Handler
+                0x0000000000000bac                DAC0_IRQHandler
+                0x0000000000000bac                UART1_RX_IRQHandler
+                0x0000000000000bac                CMU_IRQHandler
+                0x0000000000000bac                EBI_IRQHandler
+                0x0000000000000bac                LESENSE_IRQHandler
+                0x0000000000000bac                GPIO_ODD_IRQHandler
+                0x0000000000000bac                AES_IRQHandler
+                0x0000000000000bac                VCMP_IRQHandler
+                0x0000000000000bac                DMA_IRQHandler
+                0x0000000000000bac                BusFault_Handler
+                0x0000000000000bac                USART2_TX_IRQHandler
+ *fill*         0x0000000000000bb2        0x2 
  .text.GetProdRev
-                0x0000000000000ba4       0x18 gcc/system_efm32gg.o
+                0x0000000000000bb4       0x18 gcc/system_efm32gg.o
  .text.SystemCoreClockGet
-                0x0000000000000bbc       0x34 gcc/system_efm32gg.o
-                0x0000000000000bbc                SystemCoreClockGet
+                0x0000000000000bcc       0x34 gcc/system_efm32gg.o
+                0x0000000000000bcc                SystemCoreClockGet
  .text.SystemHFClockGet
-                0x0000000000000bf0      0x118 gcc/system_efm32gg.o
-                0x0000000000000bf0                SystemHFClockGet
+                0x0000000000000c00      0x118 gcc/system_efm32gg.o
+                0x0000000000000c00                SystemHFClockGet
  .text.SystemInit
-                0x0000000000000d08        0xc gcc/system_efm32gg.o
-                0x0000000000000d08                SystemInit
- .text.__itoa   0x0000000000000d14       0x30 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-itoa.o)
-                0x0000000000000d14                __itoa
- .text.itoa     0x0000000000000d44        0x4 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-itoa.o)
-                0x0000000000000d44                itoa
- .text.memset   0x0000000000000d48       0x10 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memset.o)
-                0x0000000000000d48                memset
- .text.__utoa   0x0000000000000d58       0x84 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
-                0x0000000000000d58                __utoa
+                0x0000000000000d18        0xc gcc/system_efm32gg.o
+                0x0000000000000d18                SystemInit
+ .text.__itoa   0x0000000000000d24       0x30 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-itoa.o)
+                0x0000000000000d24                __itoa
+ .text.itoa     0x0000000000000d54        0x4 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-itoa.o)
+                0x0000000000000d54                itoa
+ .text.memset   0x0000000000000d58       0x10 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memset.o)
+                0x0000000000000d58                memset
+ .text.__utoa   0x0000000000000d68       0x84 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
+                0x0000000000000d68                __utoa
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -235,56 +238,56 @@ END GROUP
  *(.dtors)
  *(.rodata*)
  .rodata.segments14forchar
-                0x0000000000000ddc       0xc0 gcc/lcd.o
+                0x0000000000000dec       0xc0 gcc/lcd.o
  .rodata.segments7forchar
-                0x0000000000000e9c       0x60 gcc/lcd.o
+                0x0000000000000eac       0x60 gcc/lcd.o
  .rodata.tablcd
-                0x0000000000000efc      0x1c2 gcc/lcd.o
- *fill*         0x00000000000010be        0x2 
+                0x0000000000000f0c      0x1c2 gcc/lcd.o
+ *fill*         0x00000000000010ce        0x2 
  .rodata.seg_encoding
-                0x00000000000010c0       0xa0 gcc/lcd.o
+                0x00000000000010d0       0xa0 gcc/lcd.o
  .rodata.com_encoding
-                0x0000000000001160        0x8 gcc/lcd.o
+                0x0000000000001170        0x8 gcc/lcd.o
  .rodata.tablcdclear
-                0x0000000000001168      0x3c0 gcc/lcd.o
+                0x0000000000001178      0x3c0 gcc/lcd.o
  .rodata.segdatalow
-                0x0000000000001528       0x20 gcc/lcd.o
-                0x0000000000001528                segdatalow
+                0x0000000000001538       0x20 gcc/lcd.o
+                0x0000000000001538                segdatalow
  .rodata.segdatahigh
-                0x0000000000001548       0x20 gcc/lcd.o
-                0x0000000000001548                segdatahigh
+                0x0000000000001558       0x20 gcc/lcd.o
+                0x0000000000001558                segdatahigh
  .rodata.__utoa.str1.1
-                0x0000000000001568       0x25 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
+                0x0000000000001578       0x25 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
  *(.eh_frame*)
 
-.glue_7         0x0000000000001590        0x0
- .glue_7        0x0000000000001590        0x0 linker stubs
+.glue_7         0x00000000000015a0        0x0
+ .glue_7        0x00000000000015a0        0x0 linker stubs
 
-.glue_7t        0x0000000000001590        0x0
- .glue_7t       0x0000000000001590        0x0 linker stubs
+.glue_7t        0x00000000000015a0        0x0
+ .glue_7t       0x00000000000015a0        0x0 linker stubs
 
-.vfp11_veneer   0x0000000000001590        0x0
- .vfp11_veneer  0x0000000000001590        0x0 linker stubs
+.vfp11_veneer   0x00000000000015a0        0x0
+ .vfp11_veneer  0x00000000000015a0        0x0 linker stubs
 
-.v4_bx          0x0000000000001590        0x0
- .v4_bx         0x0000000000001590        0x0 linker stubs
+.v4_bx          0x00000000000015a0        0x0
+ .v4_bx         0x00000000000015a0        0x0 linker stubs
 
-.iplt           0x0000000000001590        0x0
- .iplt          0x0000000000001590        0x0 gcc/lcd.o
+.iplt           0x00000000000015a0        0x0
+ .iplt          0x00000000000015a0        0x0 gcc/lcd.o
 
-.rel.dyn        0x0000000000001590        0x0
- .rel.iplt      0x0000000000001590        0x0 gcc/lcd.o
+.rel.dyn        0x00000000000015a0        0x0
+ .rel.iplt      0x00000000000015a0        0x0 gcc/lcd.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000000000000158d                __exidx_start = .
+                0x000000000000159d                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x000000000000158d                __exidx_end = .
-                0x000000000000158d                __etext = .
+                0x000000000000159d                __exidx_end = .
+                0x000000000000159d                __etext = .
 
-.data           0x0000000020000000        0x8 load address 0x000000000000158d
+.data           0x0000000020000000        0x8 load address 0x000000000000159d
                 0x0000000020000000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -312,10 +315,10 @@ END GROUP
                 0x0000000020000008                . = ALIGN (0x4)
                 0x0000000020000008                __data_end__ = .
 
-.igot.plt       0x0000000020000008        0x0 load address 0x0000000000001598
+.igot.plt       0x0000000020000008        0x0 load address 0x00000000000015a8
  .igot.plt      0x0000000020000008        0x0 gcc/lcd.o
 
-.bss            0x0000000020000008        0x8 load address 0x0000000000001598
+.bss            0x0000000020000008        0x8 load address 0x00000000000015a8
                 0x0000000020000008                . = ALIGN (0x4)
                 0x0000000020000008                __bss_start__ = .
  *(.bss*)
@@ -352,48 +355,48 @@ END GROUP
 OUTPUT(gcc/blink1.axf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x0000000000000000     0x20c4
+.debug_info     0x0000000000000000     0x2105
  .debug_info    0x0000000000000000      0xe28 gcc/lcd.o
- .debug_info    0x0000000000000e28      0xbb7 gcc/main.o
- .debug_info    0x00000000000019df      0x1e1 gcc/startup_efm32gg.o
- .debug_info    0x0000000000001bc0      0x504 gcc/system_efm32gg.o
+ .debug_info    0x0000000000000e28      0xbf8 gcc/main.o
+ .debug_info    0x0000000000001a20      0x1e1 gcc/startup_efm32gg.o
+ .debug_info    0x0000000000001c01      0x504 gcc/system_efm32gg.o
 
-.debug_abbrev   0x0000000000000000      0x6a6
+.debug_abbrev   0x0000000000000000      0x6b1
  .debug_abbrev  0x0000000000000000      0x1f0 gcc/lcd.o
- .debug_abbrev  0x00000000000001f0      0x236 gcc/main.o
- .debug_abbrev  0x0000000000000426       0xfb gcc/startup_efm32gg.o
- .debug_abbrev  0x0000000000000521      0x185 gcc/system_efm32gg.o
+ .debug_abbrev  0x00000000000001f0      0x241 gcc/main.o
+ .debug_abbrev  0x0000000000000431       0xfb gcc/startup_efm32gg.o
+ .debug_abbrev  0x000000000000052c      0x185 gcc/system_efm32gg.o
 
-.debug_aranges  0x0000000000000000      0x1a0
+.debug_aranges  0x0000000000000000      0x1b0
  .debug_aranges
                 0x0000000000000000       0xb0 gcc/lcd.o
  .debug_aranges
-                0x00000000000000b0       0x48 gcc/main.o
+                0x00000000000000b0       0x58 gcc/main.o
  .debug_aranges
-                0x00000000000000f8       0x38 gcc/startup_efm32gg.o
+                0x0000000000000108       0x38 gcc/startup_efm32gg.o
  .debug_aranges
-                0x0000000000000130       0x70 gcc/system_efm32gg.o
+                0x0000000000000140       0x70 gcc/system_efm32gg.o
 
-.debug_ranges   0x0000000000000000      0x160
+.debug_ranges   0x0000000000000000      0x170
  .debug_ranges  0x0000000000000000       0xa0 gcc/lcd.o
- .debug_ranges  0x00000000000000a0       0x38 gcc/main.o
- .debug_ranges  0x00000000000000d8       0x28 gcc/startup_efm32gg.o
- .debug_ranges  0x0000000000000100       0x60 gcc/system_efm32gg.o
+ .debug_ranges  0x00000000000000a0       0x48 gcc/main.o
+ .debug_ranges  0x00000000000000e8       0x28 gcc/startup_efm32gg.o
+ .debug_ranges  0x0000000000000110       0x60 gcc/system_efm32gg.o
 
-.debug_line     0x0000000000000000     0x11b5
+.debug_line     0x0000000000000000     0x11f3
  .debug_line    0x0000000000000000      0x94f gcc/lcd.o
- .debug_line    0x000000000000094f      0x3ed gcc/main.o
- .debug_line    0x0000000000000d3c      0x16e gcc/startup_efm32gg.o
- .debug_line    0x0000000000000eaa      0x30b gcc/system_efm32gg.o
+ .debug_line    0x000000000000094f      0x42b gcc/main.o
+ .debug_line    0x0000000000000d7a      0x16e gcc/startup_efm32gg.o
+ .debug_line    0x0000000000000ee8      0x30b gcc/system_efm32gg.o
 
-.debug_str      0x0000000000000000      0xdd9
+.debug_str      0x0000000000000000      0xe13
  .debug_str     0x0000000000000000      0x6bf gcc/lcd.o
                                         0x726 (size before relaxing)
- .debug_str     0x00000000000006bf      0x4de gcc/main.o
-                                        0x78b (size before relaxing)
- .debug_str     0x0000000000000b9d       0xc9 gcc/startup_efm32gg.o
+ .debug_str     0x00000000000006bf      0x518 gcc/main.o
+                                        0x7a8 (size before relaxing)
+ .debug_str     0x0000000000000bd7       0xc9 gcc/startup_efm32gg.o
                                         0x1f8 (size before relaxing)
- .debug_str     0x0000000000000c66      0x173 gcc/system_efm32gg.o
+ .debug_str     0x0000000000000ca0      0x173 gcc/system_efm32gg.o
                                         0x400 (size before relaxing)
 
 .comment        0x0000000000000000       0x49
@@ -420,11 +423,11 @@ LOAD linker stubs
  .ARM.attributes
                 0x000000000000010e       0x2d /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
 
-.debug_frame    0x0000000000000000      0x64c
+.debug_frame    0x0000000000000000      0x68c
  .debug_frame   0x0000000000000000      0x2d8 gcc/lcd.o
- .debug_frame   0x00000000000002d8       0xdc gcc/main.o
- .debug_frame   0x00000000000003b4       0x78 gcc/startup_efm32gg.o
- .debug_frame   0x000000000000042c      0x180 gcc/system_efm32gg.o
- .debug_frame   0x00000000000005ac       0x38 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-itoa.o)
- .debug_frame   0x00000000000005e4       0x20 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memset.o)
- .debug_frame   0x0000000000000604       0x48 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
+ .debug_frame   0x00000000000002d8      0x11c gcc/main.o
+ .debug_frame   0x00000000000003f4       0x78 gcc/startup_efm32gg.o
+ .debug_frame   0x000000000000046c      0x180 gcc/system_efm32gg.o
+ .debug_frame   0x00000000000005ec       0x38 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-itoa.o)
+ .debug_frame   0x0000000000000624       0x20 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x0000000000000644       0x48 /home/laranja/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-utoa.o)
